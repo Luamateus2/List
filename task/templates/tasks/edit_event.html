@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% block extra_head %}
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.min.js"></script>
+{% endblock %}
+<main>
+    <form method="POST" action="{% url 'edit_event' event.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="id" value="{{ event.id }}">
+        
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" name="title" class="form-control" id="title" value="{{ event.title }}" required>
+            </div>
+            <div class="col-md-6">
+                <label for="start_date" class="form-label">Start Date</label>
+                <input type="date" name="start_date" class="form-control" id="start_date" value="{{ event.start_date|date:'Y-m-d' }}" required>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="days_of_week" class="form-label">Days of Week</label>
+            <select name="days_of_week" id="days_of_week" class="form-select" aria-label="Select multiple options" multiple required>
+                <option disabled>Select Days...</option>
+                {% for value, display in days_of_week %}
+                    <option value="{{ value }}" {% if value in event.get_days_of_week %}selected{% endif %}>
+                        {{ display }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="duration" class="form-label">Duration</label>
+                <input type="time" name="duration" class="form-control" id="duration" value="{{ duration_hours|add:':00' }}" required>
+            </div>
+            <div class="col-md-6">
+                <label for="description" class="form-label">Description</label>
+                <textarea name="description" class="form-control" id="description" rows="3" required>{{ event.description }}</textarea>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+</main>
+
+{% endblock %}

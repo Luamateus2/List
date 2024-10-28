@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<main>
+<form method="POST" action="{% url 'create_list'%}">
+    {% csrf_token %}
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" name="title" class="form-control" id="title" required>
+        </div>
+        <div class="col-md-6">
+            <label for="start_date" class="form-label">Start Date</label>
+            <input type="date" name="start_date" class="form-control" id="start_date" required>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="days_of_week" class="form-label">Days of Week</label>
+        <select name="days_of_week" id="days_of_week" class="form-select" aria-label="Select multiple options" multiple required>
+            <option disabled selected>Select Days...</option>
+            {% for value, display in days_of_week %}
+                <option value="{{ value }}">{{ display }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="duration" class="form-label">Duration</label>
+            <input type="time" name="duration" class="form-control" id="duration" required>
+        </div>
+        <div class="col-md-6">
+            <label for="description" class="form-label">Description</label>
+            <textarea name="description" class="form-control" id="description" rows="3"></textarea>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</main>
+{% endblock %}

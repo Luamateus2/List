@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+::after,
+::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+
+h1 {
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+body {
+    display: flex;
+    flex-direction: column; /* Permite que o footer fique no final */
+    height: 100vh; /* Faz o body ocupar a altura total da tela */
+    margin: 0; /* Remove margens padrão */
+    font-family: 'Poppins', sans-serif; /* Fonte padrão */
+}
+
+.wrapper {
+    display: flex;
+    flex: 1; /* Permite que a wrapper ocupe o espaço restante */
+}
+
+.main {
+    flex: 1; /* A área principal ocupa o espaço restante */
+    overflow-y: auto; /* Adiciona rolagem vertical se necessário */
+    background-color: #fafbfe; /* Cor de fundo da área principal */
+    padding: 1rem; /* Espaçamento interno */
+}
+
+#sidebar {
+    width: 70px; /* Largura inicial da sidebar */
+    min-width: 70px;
+    z-index: 1000;
+    transition: all .25s ease-in-out;
+    background-color: #0e2238; /* Cor de fundo da sidebar */
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Sidebar ocupa a altura total */
+}
+
+#sidebar.expand {
+    width: 260px; /* Largura expandida da sidebar */
+    min-width: 260px;
+}
+
+.toggle-btn {
+    background-color: transparent;
+    cursor: pointer;
+    border: 0;
+    padding: 1rem 1.5rem;
+}
+
+.toggle-btn i {
+    font-size: 1.5rem;
+    color: #FFF; /* Cor dos ícones */
+}
+
+.sidebar-logo {
+    margin: auto 0;
+}
+
+.sidebar-logo a {
+    color: #FFF; /* Cor do texto do logo */
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+#sidebar:not(.expand) .sidebar-logo,
+#sidebar:not(.expand) a.sidebar-link span {
+    display: none; /* Esconde texto quando a sidebar está colapsada */
+}
+
+.sidebar-nav {
+    padding: 2rem 0; /* Espaçamento interno da nav */
+    flex: 1 1 auto;
+}
+
+a.sidebar-link {
+    padding: .625rem 1.625rem; /* Espaçamento dos links */
+    color: #FFF; /* Cor dos links */
+    display: block;
+    font-size: 0.9rem;
+    white-space: nowrap; /* Impede a quebra de linha */
+    border-left: 3px solid transparent; /* Borda lateral */
+}
+
+.sidebar-link i {
+    font-size: 1.1rem; /* Tamanho dos ícones */
+    margin-right: .75rem; /* Espaçamento à direita do ícone */
+}
+
+a.sidebar-link:hover {
+    background-color: rgba(255, 255, 255, .075); /* Cor de fundo ao passar o mouse */
+    border-left: 3px solid #3b7ddd; /* Borda ao passar o mouse */
+}
+
+.sidebar-item {
+    position: relative;
+}
+
+#sidebar:not(.expand) .sidebar-item .sidebar-dropdown {
+    position: absolute;
+    top: 0;
+    left: 70px; /* Largura do dropdown */
+    background-color: #0e2238;
+    padding: 0;
+    min-width: 15rem; /* Largura mínima do dropdown */
+    display: none; /* Esconde dropdown */
+}
+
+#sidebar:not(.expand) .sidebar-item:hover .has-dropdown+.sidebar-dropdown {
+    display: block; /* Mostra dropdown ao passar o mouse */
+    max-height: 15em; /* Altura máxima do dropdown */
+    width: 100%;
+    opacity: 1;
+}
+
+#sidebar.expand .sidebar-link[data-bs-toggle="collapse"]::after {
+    border: solid;
+    border-width: 0 .075rem .075rem 0;
+    content: "";
+    display: inline-block;
+    padding: 2px;
+    position: absolute;
+    right: 1.5rem;
+    top: 1.4rem;
+    transform: rotate(-135deg);
+    transition: all .2s ease-out;
+}
+
+#sidebar.expand .sidebar-link[data-bs-toggle="collapse"].collapsed::after {
+    transform: rotate(45deg);
+    transition: all .2s ease-out;
+}
+
+footer {
+    width: auto; /* Faz o footer ocupar a largura total */
+    background-color: #f8f9fa; /* Adiciona uma cor de fundo ao footer */
+}
+
+.container {
+    max-width: 1200px; /* Limita a largura do conteúdo do footer */
+    margin: 0 auto; /* Centraliza o conteúdo do footer */
+    padding: 1rem; /* Adiciona espaçamento interno ao footer */
+}

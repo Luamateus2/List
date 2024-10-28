@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Tarefas do Dia{% endblock %}
+
+{% block extra_head %}
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<main class="container mt-4">
+    <h1>Tarefas do dia</h1>
+    <h2 id="data-do-dia-listado">{{ data_do_dia|date:"d/m/Y" }}</h2>
+    <p id="relogio"></p>
+
+    <h2>Eventos do Dia</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Título</th>
+                <th scope="col">Descrição</th>
+                <th scope="col">Data Início</th>
+                <th scope="col">Duração</th>
+                <th scope="col">Editar</th>
+                <th scope="col">Excluir</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for evento in events %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ evento.title }}</td>
+                    <td>{{ evento.description }}</td>
+                    <td>{{ evento.start_date|date:"d/m/Y" }}</td>
+                    <td>{{ evento.duration_hours }}h {{ evento.duration_minutes }}m</td>
+                    <td>
+                        <a href="{% url 'edit_event' id=evento.id %}">
+                            <img src="{% static 'img/editar.png' %}" alt="botão para editar evento">
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'delete_event' id=evento.id %}">
+                            <img src="{% static 'img/cancelar.png' %}" alt="botão para excluir evento">
+                        </a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="6">Nenhuma tarefa para hoje.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</main>
+{% endblock %}
